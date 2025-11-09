@@ -9,7 +9,7 @@ Optimized for speed with parallel downloads, batch searches, and automatic query
 
 ## Features
 
-- Works with **Spotify playlist CSVs** (exportable via [Exportify](https://watsonbox.github.io/exportify/)).  
+- Works with **Spotify playlist CSVs** (exportable via [Exportify](https://exportify.net/)).  
 - **Console-based**, cancelable at any time with `Ctrl+C`.  
 - **Parallel downloads** using multiple threads for faster performance.  
 - **Batch YouTube searches** to reduce HTTP requests.  
