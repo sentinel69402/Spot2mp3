@@ -46,6 +46,8 @@ A fast, console-based Python tool to download songs from a Spotify playlist via 
 
 ### Install Dependencies
 
+### ⚠️ Make sure to add an empty playlist folder inside of the cloned repo. 
+
 ```bash
 pip install yt-dlp
 ```
