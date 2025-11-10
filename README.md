@@ -53,7 +53,7 @@ pip install yt-dlp
 ### Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/spotify2media.git
+git clone https://github.com/sentinel69402/Spot2mp3.git
 cd spotify2media
 ```
 
