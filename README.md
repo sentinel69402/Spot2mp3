@@ -69,12 +69,12 @@ Visit [Exportify](https://exportify.net/) and export your playlist as a CSV file
 
 **Download all tracks automatically:**
 ```bash
-python main.py playlist.csv --all
+python spotify2media.py playlist.csv --all
 ```
 
 **Download with confirmation prompts:**
 ```bash
-python main.py playlist.csv
+python spotify2media.py playlist.csv
 ```
 
 ### 3. Find Your Music
@@ -93,7 +93,7 @@ playlists/
 
 ### Adjust Download Settings
 
-Edit the configuration variables in `main.py`:
+Edit the configuration variables in `spotify2media.py`:
 
 ```python
 MAX_WORKERS = 4  # Number of parallel downloads (adjust based on your CPU)
@@ -119,10 +119,10 @@ MAX_RETRIES = 3    # Retry attempts for failed downloads
 
 ```bash
 # Download with prompts
-python main.py my_playlist.csv
+python spotify2media.py my_playlist.csv
 
 # Download all automatically
-python main.py my_playlist.csv --all
+python spotify2media.py my_playlist.csv --all
 ```
 
 ---
@@ -136,7 +136,7 @@ python main.py my_playlist.csv --all
 - macOS: `brew install ffmpeg`
 
 **Issue: Downloads are slow**
-- Increase `MAX_WORKERS` in `main.py` (e.g., to 8 or 16)
+- Increase `MAX_WORKERS` in `spotify2media.py` (e.g., to 8 or 16)
 - Check your internet connection
 
 **Issue: Wrong songs downloaded**
