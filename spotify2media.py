@@ -25,6 +25,7 @@ def process_playlist(tracks, auto_confirm=False):
                 continue
 
             # Prompt if not auto
+            # Tbh why would u ask for it to prompt every time?
             if not auto_confirm:
                 confirm = input(f"Download '{track_name}' by {artist_name}? [y/N]: ").strip().lower()
                 if confirm != "y":

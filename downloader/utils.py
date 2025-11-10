@@ -1,6 +1,7 @@
 import os
 import re
 
+
 BASE_DIR = os.path.join(os.getcwd(),"playlists")
 
 def clean_query(track: str,artist: str) -> str:
