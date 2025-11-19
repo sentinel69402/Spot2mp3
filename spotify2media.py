@@ -3,12 +3,15 @@ import sys
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from downloader.youtube import download_track
+import logging
+from downloader.get_progress import start_ui,stop_ui,get_progress
 
 MAX_WORKERS = 4
+logger = logging.getLogger(__name__)
 
 def load_playlist(csv_path):
     if not os.path.isfile(csv_path):
-        print("CSV file not found.")
+        logger.error("CSV file not found.")
         sys.exit(1)
     with open(csv_path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -16,6 +19,7 @@ def load_playlist(csv_path):
 
 def process_playlist(tracks, auto_confirm=False):
     futures = []
+    progress = get_progress()
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         for row in tracks:
             track_name = row.get("Track Name")
@@ -31,13 +35,18 @@ def process_playlist(tracks, auto_confirm=False):
                 if confirm != "y":
                     continue
 
-            futures.append(executor.submit(download_track, track_name, artist_name, album_name))
+            task_id = None
+            if progress:
+                desc = f"{artist_name} - {track_name}"
+                task_id = progress.add_task(desc,total=100)
+
+            futures.append(executor.submit(download_track, track_name, artist_name, album_name,task_id))
 
         for future in as_completed(futures):
             try:
                 future.result()
             except Exception as e:
-                print(f"Error downloading track: {e}")
+                logger.exception("Error downloading track: %s",e)
 
 if __name__ == "__main__":
     import argparse
@@ -47,5 +56,10 @@ if __name__ == "__main__":
     parser.add_argument("--all", action="store_true", help="Download all tracks without prompting")
     args = parser.parse_args()
 
-    playlist = load_playlist(args.csv)
-    process_playlist(playlist, auto_confirm=args.all)
+    # start thread safe logging
+    start_ui()
+    try:
+        playlist = load_playlist(args.csv)
+        process_playlist(playlist, auto_confirm=args.all)
+    finally:
+        stop_ui()
